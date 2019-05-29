@@ -3,7 +3,16 @@ import NewWorkout from './NewWorkout/NewWorkout';
 import EditWorkout from './EditWorkout/EditWorkout';
 import TimerApp from './TimerApp/TimerApp';
 
+/*
+*****************************************************************
 
+Front End React Develoment by Adam Wolfman
+Original GitHub Repository - https://github.com/awolfden/inHIIT
+
+Refactored by Wes Marberry to accept a Java back end on 5/28/2019
+
+*****************************************************************
+*/
 
 const WorkoutList = (props) => {
     

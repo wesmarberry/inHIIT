@@ -1,6 +1,17 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
+/*
+*****************************************************************
+
+Front End React Develoment by Adam Wolfman
+Original GitHub Repository - https://github.com/awolfden/inHIIT
+
+Refactored by Wes Marberry to accept a Java back end on 5/28/2019
+
+*****************************************************************
+*/
+
 class EditWorkout extends React.Component {
   constructor(props) {
     super(props);

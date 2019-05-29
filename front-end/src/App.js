@@ -7,6 +7,17 @@ import UserLogin from './UserLogin/UserLogin';
 
 // Admin Username is 'Adam' and password is '123'
 
+/*
+*****************************************************************
+
+Front End React Develoment by Adam Wolfman
+Original GitHub Repository - https://github.com/awolfden/inHIIT
+
+Refactored by Wes Marberry to accept a Java back end on 5/28/2019
+
+*****************************************************************
+*/
+
 
 class App extends Component {
     constructor(){
@@ -145,7 +156,7 @@ class App extends Component {
 
 
       try {
-          const createdUser = await fetch('http://localhost:8080/users', {
+          const createdUser = await fetch(process.env.REACT_APP_API_CALL + 'users', {
               method: 'POST',
               credentials: 'include',
               body: JSON.stringify(formData),
@@ -182,7 +193,7 @@ class App extends Component {
   loginUser = async (formData, e) => {
       e.preventDefault();
       try {
-        const loginUser = await fetch('http://localhost:8080/users/login', {
+        const loginUser = await fetch(process.env.REACT_APP_API_CALL + 'users/login', {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(formData),
@@ -213,7 +224,7 @@ class App extends Component {
 
   logoutUser = async () => {
     try {
-      const logoutUser = await fetch('http://localhost:8080/users/logout', {
+      const logoutUser = await fetch(process.env.REACT_APP_API_CALL + 'users/logout', {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -238,7 +249,7 @@ class App extends Component {
   getWorkouts = async () => {
 
     try {
-        const response = await fetch('http://localhost:8080/workouts', {
+        const response = await fetch(process.env.REACT_APP_API_CALL + 'workouts', {
           method: 'GET',
           credentials: 'include', // on every request we have to send the cookie
           headers: {
@@ -283,7 +294,7 @@ class App extends Component {
   createWorkout = async (formData, e) => {
     e.preventDefault();
     try {
-        const createdWorkout = await fetch('http://localhost:8080/workouts', {
+        const createdWorkout = await fetch(process.env.REACT_APP_API_CALL + 'workouts', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(formData),
@@ -303,7 +314,7 @@ class App extends Component {
   deleteWorkout = async (deletedWorkoutID) => {
     console.log(deletedWorkoutID);
     try{
-        const deleteWorkout = await fetch('http://localhost:8080/workouts/' + deletedWorkoutID, {
+        const deleteWorkout = await fetch(process.env.REACT_APP_API_CALL + 'workouts/' + deletedWorkoutID, {
             method: 'DELETE',
             credentials: 'include',
             headers: {
@@ -330,7 +341,7 @@ class App extends Component {
   editWorkout = async (e) => {
     e.preventDefault();
     try {
-        const updateWorkout = await fetch('http://localhost:8080/workouts/' + this.state.workoutToEdit.id + '/edit', {
+        const updateWorkout = await fetch(process.env.REACT_APP_API_CALL + 'workouts/' + this.state.workoutToEdit.id + '/edit', {
             method: 'PUT',
             credentials: 'include',
             body: JSON.stringify(this.state.workoutToEdit),
