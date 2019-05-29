@@ -27,12 +27,12 @@ const WorkoutList = (props) => {
         return(
             <div className="workout-div flex-container" key={workout.id}>
                     <div>
-                        <h2>{workout.name}</h2>
+                        <h2>{workout.name} <span className="workout-label">by {workout.user.username}</span></h2>
                     </div>
                     <div>
-                        <p>Interval One: {workout.intervalone}</p>
-                        <p>Interval Two: {workout.intervaltwo}</p>
-                        <p>Cycles: {workout.cycles}</p>
+                        <p>Interval (seconds): {workout.intervalone}</p>
+                        <p>Rest Interval (seconds): {workout.intervaltwo}</p>
+                        <p>Sets: {workout.cycles}</p>
                     </div>
                     <div>
                         <button onClick={toggleClass.bind(null, index)}>Let's Go!</button>
@@ -50,11 +50,13 @@ const WorkoutList = (props) => {
         )
     });
 
+    const newWorkouts = workouts.reverse()
+
     return(
         <div>
-            {props.isLogged ? <NewWorkout buttonLabel={"New Workout"} createWorkout={props.createWorkout}/> : null}
+            {props.isLogged ? <NewWorkout buttonLabel={"New Workout"} createWorkout={props.createWorkout}/>: <h3 className="recent">Recent Workouts</h3>}
             <div className="flex-container">
-                {workouts}
+                {newWorkouts}
             </div>
         </div>
         

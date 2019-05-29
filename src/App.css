@@ -84,11 +84,30 @@ button.btn.btn-secondary {
   margin: 20px;
 }
 
+.workout-label {
+  font-size: 20px;
+}
+
+.recent {
+  color: black;
+  text-decoration: underline;
+}
+
 .flex-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
+}
+
+.version {
+  display: flex;
+  justify-content: flex-start;
+  color: black;
+}
+
+.version p {
+  margin-left: 32px;
 }
 
 .main-flex-container {

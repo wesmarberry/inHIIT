@@ -192,6 +192,7 @@ class App extends Component {
 
   loginUser = async (formData, e) => {
       e.preventDefault();
+      console.log(process.env.REACT_APP_API_CALL);
       try {
         const loginUser = await fetch(process.env.REACT_APP_API_CALL + 'users/login', {
         method: 'POST',
@@ -202,7 +203,8 @@ class App extends Component {
         }
         })
         const parsedResponse = await loginUser.json();
-        if(parsedResponse === "Invalid Credentials"){
+        console.log(parsedResponse);
+        if(parsedResponse.message === "Invalid Credentials"){
           this.setState({
             logFailMsg: 'Username or Password Incorrect'
           })
@@ -304,6 +306,7 @@ class App extends Component {
         });
 
         const parsedResponse = await createdWorkout.json();
+        console.log(parsedResponse);
         this.setState({workouts: [...this.state.workouts, parsedResponse]})
 
     } catch(err) {
@@ -391,6 +394,9 @@ class App extends Component {
           <div className='logo-div'>
           <div>
             <img className='logo' src={require('./images/inHIIT_logo.png')} alt='logo'></img>
+            <div className='version'>
+              <p>Version 2.0</p>
+            </div>
           </div>
             <WeatherForecast weatherData={this.state.weather} weatherSearch={this.weatherSearch}/>              
           </div>
