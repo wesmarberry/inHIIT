@@ -30,7 +30,8 @@ const WorkoutList = (props) => {
                         <h2>{workout.name} <span className="workout-label">by {workout.user.username}</span></h2>
                     </div>
                     <div>
-                        <p>Interval (seconds): {workout.intervalone}</p>
+                        <p>Reps: {workout.reps}</p>
+                        <p>Set Interval (seconds): {workout.intervalone}</p>
                         <p>Rest Interval (seconds): {workout.intervaltwo}</p>
                         <p>Sets: {workout.cycles}</p>
                     </div>

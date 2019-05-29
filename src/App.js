@@ -38,7 +38,7 @@ class App extends Component {
         loggedUserId: '',
         logFailMsg: '',
         latLong: '',
-        
+        showWeather: false,
         workouts: [],
         workoutToEdit: {
           id: null,
@@ -386,7 +386,19 @@ class App extends Component {
     })
   }
 
+  showWeather = () => {
+    document.getElementById('forecast').setAttribute('id', 'forecast1');
+    document.getElementById('otherForecast').setAttribute('id', 'otherForecast1');
+    document.getElementById('show-button').setAttribute('id', 'show-button1');
+    document.getElementById('hide-button').setAttribute('id', 'hide-button1');
+  }
 
+  hideWeather = () => {
+    document.getElementById('forecast1').setAttribute('id', 'forecast');
+    document.getElementById('otherForecast1').setAttribute('id', 'otherForecast');
+    document.getElementById('show-button1').setAttribute('id', 'show-button');
+    document.getElementById('hide-button1').setAttribute('id', 'hide-button');
+  }
 
   render(){
       return (
@@ -408,15 +420,23 @@ class App extends Component {
             <WorkoutList isLogged={this.state.isLogged} modalShows={this.modalShows} editWorkout={this.editWorkout} workouts={this.state.workouts} createWorkout={this.createWorkout} deleteWorkout={this.deleteWorkout} handleFormChange={this.handleFormChange}/> 
             </div>            
             <div className='aside-container'>
-            <div>
+            <div className='button-container'>
+              <div>
               <p className='failure'>{this.state.logFailMsg}</p>
-              {this.state.isLogged ? <p className='login'>Welcome, {this.state.loggedUser}! </p> : null}
-              {this.state.isLogged ? <button onClick={this.logoutUser} className='newButton loginModalButton'>Logout</button>
-              :
-              <UserLogin createUser={this.createUser} loginUser={this.loginUser} buttonLabel={'Login/Register'}/>}
+                {this.state.isLogged ? <p className='login'>Welcome, {this.state.loggedUser}! </p> : null}
+                {this.state.isLogged ? <button onClick={this.logoutUser} className='newButton loginModalButton'>Logout</button>
+                :
+                <UserLogin createUser={this.createUser} loginUser={this.loginUser} buttonLabel={'Login/Register'}/>}
+              </div>
+              <div className='show-weather-div'>
+                <button id='show-button' className='newButton show-weather loginModalButton btn btn-secondary' onClick={this.showWeather}>Show Weather</button>
+                <button id='hide-button' className='newButton show-weather loginModalButton btn btn-secondary' onClick={this.hideWeather}>Hide Weather</button>
+              </div>
             </div>
-              
-              {this.state.forecast ? <WeatherAside  forecast={this.state.forecast}/> : null}
+              <div id="otherForecast">
+                {this.state.forecast ? <WeatherAside  forecast={this.state.forecast}/> : null}
+                
+              </div>
             </div>           
           </div>
         </div>

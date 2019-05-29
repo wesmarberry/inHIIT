@@ -46,10 +46,11 @@ class EditWorkout extends React.Component {
           <form onSubmit={this.props.editWorkout}>
           <ModalBody>
                 
-                    name: <input onChange={this.props.handleFormChange} type='text' name='name' placeholder={this.props.workout.name}/><br/>
-                    intervalOne: <input onChange={this.props.handleFormChange} type='text' name='intervalone' placeholder={this.props.workout.intervalone}/><br/>
-                    intervalTwo: <input onChange={this.props.handleFormChange} type='text' name='intervaltwo' placeholder={this.props.workout.intervaltwo}/><br/>
-                    cycles: <input onChange={this.props.handleFormChange} type='text' name='cycles' placeholder={this.props.workout.cycles}/><br/>
+                    Name: <input onChange={this.props.handleFormChange} type='text' name='name' placeholder={this.props.workout.name}/><br/>
+                    Reps: <input onChange={this.props.handleFormChange} type='text' name='reps' placeholder={this.props.workout.reps}/><br/>
+                    Set Interval (seconds): <input onChange={this.props.handleFormChange} type='text' name='intervalone' placeholder={this.props.workout.intervalone}/><br/>
+                    Rest Interval (seconds): <input onChange={this.props.handleFormChange} type='text' name='intervaltwo' placeholder={this.props.workout.intervaltwo}/><br/>
+                    Cycles: <input onChange={this.props.handleFormChange} type='text' name='cycles' placeholder={this.props.workout.cycles}/><br/>
 
                 
           </ModalBody>

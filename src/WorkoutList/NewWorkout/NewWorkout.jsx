@@ -17,6 +17,7 @@ class NewWorkout extends Component {
         super();
         this.state = {
             name: '',
+            reps: null,
             intervalone: null,
             intervaltwo: null,
             cycles: null,
@@ -49,9 +50,10 @@ class NewWorkout extends Component {
             
                 
                     Name: <input onChange={this.updateState} type='text' name='name'/><br/>
-                    IntervalOne: <input onChange={this.updateState} type='text' name='intervalone'/><br/>
-                    IntervalTwo: <input onChange={this.updateState} type='text' name='intervaltwo'/><br/>
-                    Cycles: <input onChange={this.updateState} type='text' name='cycles'/><br/>
+                    Reps: <input onChange={this.updateState} type='text' name='reps'/><br/>
+                    Set Interval (seconds): <input onChange={this.updateState} type='text' name='intervalone'/><br/>
+                    Rest Interval (seconds): <input onChange={this.updateState} type='text' name='intervaltwo'/><br/>
+                    Sets: <input onChange={this.updateState} type='text' name='cycles'/><br/>
                     
                 
 

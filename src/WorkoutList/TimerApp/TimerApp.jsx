@@ -19,7 +19,7 @@ class TimerApp extends Component {
             intervalEnd: 0,
             cycles: 0,
             interval: null,
-            whichInterval: 'Interval One',
+            whichInterval: 'Press Start To Begin',
             victoryMessage: ''
         }    
     }
@@ -52,7 +52,7 @@ class TimerApp extends Component {
                     seconds: 0,
                     intervalEnd: this.props.workout.intervaltwo,
                     cycles: newCycles,
-                    whichInterval: 'Interval Two'
+                    whichInterval: 'Rest'
                     
                 })            
             } else if(this.state.cycles % 2 !== 0 && this.state.seconds === this.state.intervalEnd){
@@ -61,14 +61,15 @@ class TimerApp extends Component {
                     seconds: 0,
                     intervalEnd: this.props.workout.intervalone,
                     cycles: newCycles,
-                    whichInterval: 'Interval One'
+                    whichInterval: 'Exercise!'
                 })
             }        
     }
 
     timer = () => {
         this.setState({
-            interval: setInterval(this.secondsGoUp, 1000)
+            interval: setInterval(this.secondsGoUp, 1000),
+            whichInterval: 'Exercise!'
         })
     }
 
@@ -89,7 +90,7 @@ class TimerApp extends Component {
             intervalEnd: 0,
             cycles: 0,
             interval: null,
-            whichInterval: 'Interval One',
+            whichInterval: 'Exercise!',
             victoryMessage: ''
         })
     }
@@ -99,7 +100,7 @@ class TimerApp extends Component {
             <div className='flex-container' id={this.props.timerID}>
                 <div>
                     <div id='timer-div' className='timer'>
-                        <p>Cycle: {Math.floor(this.state.cycles / 2)  + 1}</p>
+                        <p>Set: {Math.floor(this.state.cycles / 2)  + 1}</p>
                         <p>{this.state.whichInterval}</p>
                         <h1>{this.state.seconds}</h1>
                         <img onClick={this.resetTimer} id={`image${this.props.index}`} className='hidden victoryImg' src={require('../../images/crushed_it.png')} alt='name' />

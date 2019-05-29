@@ -65,6 +65,11 @@ div.hidden {
   transition: height 350ms ease-in-out, opacity 750ms ease-in-out;
 }
 
+.show-weather, .show-weather-div {
+  visibility: hidden;
+  height: 0px;
+}
+
 .victoryImg {
   position: relative;
   right: 150px;
@@ -89,7 +94,7 @@ button.btn.btn-secondary {
 }
 
 .recent {
-  color: black;
+  color: white;
   text-decoration: underline;
 }
 
@@ -384,17 +389,66 @@ button#loginCancel:hover {
 @media only screen and (max-width: 800px) {
   .main-flex-container {
     flex-wrap: wrap;
+    flex-direction: column-reverse;
   }
   .workout-container {
     width: 100%;
   }
 
-  .aside-container {
+  .show-weather, .show-weather-div {
+    visibility: visible;
+    height: auto;
+  }
+
+  .show-weather-div {
+    padding-left: 40px;
+  }
+
+  #forecast, #hide-button, #show-button1, #otherForecast {
     visibility: hidden;
+    height: 0px;
+    width: 0px;
+    margin: 0px 0px 0px 0px;
+  }
+
+  #forecast1, #hide-button1, #show-button, #otherForecast1 {
+    visibility: visible;
+    height: auto;
+  }
+
+  #hide-button1, #show-button {
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .logo-div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+  }
+
+  .aside-container {
+    width: 100%;
+    margin-bottom: -40px;
+    margin-top: -30px;
+    margin-left: 5px;
+
   }
   div#forecast {
     visibility: hidden;
     width: 0px;
     height: 0px;
+  }
+  
+  div#forecast1 {
+    visibility: visible;
   }
 }
