@@ -6,8 +6,8 @@ class UserLogin extends Component {
         super();
         this.state = {
             
-            userName: '',
-            userPassword: '',
+            username: '',
+            password: '',
             
             modal: false
         }
@@ -41,16 +41,16 @@ class UserLogin extends Component {
                 <form onSubmit={this.props.createUser.bind(null, this.state)}>
                     <div>
                         <p>Register New User</p>
-                        Name: <input onChange={this.updateState} type='text' name='userName'/><br/>
-                        Password: <input onChange={this.updateState} type='password' name='userPassword'/><br/>
+                        Name: <input onChange={this.updateState} type='text' name='username'/><br/>
+                        Password: <input onChange={this.updateState} type='password' name='password'/><br/>
                         <button id='loginSubmit' onClick={this.toggle} type='submit'>Submit</button>
                     </div>
                 </form>
                 <form onSubmit={this.props.loginUser.bind(null, this.state)}>
                     <div>
                         <p>Login Existing User</p>
-                        Name: <input onChange={this.updateState} type='text' name='userName'/><br/>
-                        Password: <input onChange={this.updateState} type='password' name='userPassword'/><br/> 
+                        Name: <input onChange={this.updateState} type='text' name='username'/><br/>
+                        Password: <input onChange={this.updateState} type='password' name='password'/><br/> 
                         <button id='loginCancel' onClick={this.toggle} type='submit'>Submit</button>                   
                     </div>
                 </form>

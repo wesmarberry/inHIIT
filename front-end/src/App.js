@@ -19,30 +19,56 @@ class App extends Component {
         },        
         
         forecast: null,
-        lat: 39.7392,
-        long: -104.9903,
-        city: 'Denver',  
+        lat: 41.8781,
+        long: -87.6298,
+        city: 'Chicago',  
         isLogged: false,
         loggedUser: '',
         loggedUserId: '',
         logFailMsg: '',
+        latLong: '',
         
         workouts: [],
         workoutToEdit: {
-          _id: null,
+          id: null,
           name: '',
-          intervalOne: 0,
-          intervalTwo: 0,
+          intervalone: 0,
+          intervaltwo: 0,
           cycles: 0
       },  
       }
       
     }
 
-    componentDidMount(){      
+    componentDidMount = async () => {
+    //   navigator.geolocation.getCurrentPosition((data) => {
+    //   const latLong = data
+    //   console.log(latLong);
+    //   this.setState({
+    //     latLong: latLong
+    //   })
+    // })
+
+    //   if (this.state.latLong.coords.latitude !== 0) {
+    //     this.setState({
+    //       city: 'Your location',
+    //       lat: this.state.latLong.coords.latitude,
+    //       lng: this.state.latLong.coords.longitude
+    //     })      
+        
+    //   } else {
+    //     this.setState({
+    //       lat: 41.8781,
+    //       long: -87.6298,
+    //       city: 'Chicago'
+    //     })
+    //   }
+
       this.getWeather();
       this.getWorkouts();
+      
     }
+    
 
     weatherSearch = async (e, zipCode) => {
       e.preventDefault();      
@@ -119,7 +145,7 @@ class App extends Component {
 
 
       try {
-          const createdUser = await fetch('http://localhost:9000/users/register', {
+          const createdUser = await fetch('http://localhost:8080/users', {
               method: 'POST',
               credentials: 'include',
               body: JSON.stringify(formData),
@@ -129,28 +155,34 @@ class App extends Component {
           });
 
           const parsedResponse = await createdUser.json();
-            if(parsedResponse.data !== 'User name not available'){
-              this.setState({
-                isLogged: true,
-                loggedUser: parsedResponse.data.user,
-                loggedUserId: parsedResponse.data.usersDbId,
-            })
-          } else {
-            this.setState({
-              logFailMsg: 'User name not available'
-            })
-          }
+          //   if(parsedResponse !== 'User name not available'){
+          //     this.setState({
+          //       isLogged: true,
+          //       loggedUser: parsedResponse.username,
+          //       loggedUserId: parsedResponse.id,
+          //   })
+          // } else {
+          //   this.setState({
+          //     logFailMsg: 'User name not available'
+          //   })
+          // }
 
+          await this.setState({
+            isLogged: true,
+            loggedUser: parsedResponse.username,
+            loggedUserId: parsedResponse.id
+          })
+          await this.getWorkouts();
       } catch(err) {
           console.log(err)
       }
-      this.getWorkouts();
+      
   }
 
   loginUser = async (formData, e) => {
       e.preventDefault();
       try {
-        const loginUser = await fetch('http://localhost:9000/users/login', {
+        const loginUser = await fetch('http://localhost:8080/users/login', {
         method: 'POST',
         credentials: 'include',
         body: JSON.stringify(formData),
@@ -159,18 +191,19 @@ class App extends Component {
         }
         })
         const parsedResponse = await loginUser.json();
-        if(parsedResponse.data.msg === 'login successful'){
-          this.setState({
-            isLogged: true,
-            loggedUser: parsedResponse.data.user,
-            loggedUserId: parsedResponse.data.usersDbId,
-            logFailMsg: '',
-          })
-          this.getWorkouts();
-        } else {
+        if(parsedResponse === "Invalid Credentials"){
           this.setState({
             logFailMsg: 'Username or Password Incorrect'
           })
+          
+        } else {
+          this.setState({
+            isLogged: true,
+            loggedUser: parsedResponse.username,
+            loggedUserId: parsedResponse.id,
+            logFailMsg: '',
+          })
+          this.getWorkouts();
         }
       } catch(err) {
         console.log(err);
@@ -180,13 +213,16 @@ class App extends Component {
 
   logoutUser = async () => {
     try {
-      const logoutUser = await fetch('http://localhost:9000/users/logout', {
+      const logoutUser = await fetch('http://localhost:8080/users/logout', {
         method: 'GET',
-        credentials: 'include'
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        }
       })
 
-      const parsedResponse = await logoutUser.json();
-      console.log(parsedResponse, 'this is parsed response')
+      
+      console.log(logoutUser, 'this is parsed response')
 
       this.setState({
         isLogged: false,
@@ -202,27 +238,38 @@ class App extends Component {
   getWorkouts = async () => {
 
     try {
-        const response = await fetch('http://localhost:9000/workouts');
+        const response = await fetch('http://localhost:8080/workouts', {
+          method: 'GET',
+          credentials: 'include', // on every request we have to send the cookie
+          headers: {
+            'Content-Type': 'application/json'
+        }
+      })
 
+      const parsedResponse = await response.json();
+      console.log('==================');
+      console.log(parsedResponse);
+      console.log('==================');
+      console.log(this.state);
         if(response.status !== 200){
             throw(Error(response.statusText));
         }
 
-        const parsedWorkouts = await response.json();        
+           
         if(this.state.isLogged){
-            const workoutArr = parsedWorkouts.data;
-            const userWorkouts = workoutArr.filter((workout) => workout.user.toString() === this.state.loggedUserId.toString());
+            const workoutArr = parsedResponse;
+            const userWorkouts = workoutArr.filter((workout) => workout.user.id.toString() === this.state.loggedUserId.toString());
             this.setState({
                 workouts: userWorkouts
             })
 
         } else {
           const adminUserId = '5cddbea066a0da8bcea93c44';
-          const workoutArr = parsedWorkouts.data;
-          const userWorkouts = workoutArr.filter((workout) => workout.user.toString() === adminUserId.toString());
+          const workoutArr = parsedResponse;
+          // const userWorkouts = workoutArr.filter((workout) => workout.user.toString() === adminUserId.toString());
           
             this.setState({
-                workouts: userWorkouts
+                workouts: workoutArr
             })
             
         }
@@ -236,7 +283,7 @@ class App extends Component {
   createWorkout = async (formData, e) => {
     e.preventDefault();
     try {
-        const createdWorkout = await fetch('http://localhost:9000/workouts', {
+        const createdWorkout = await fetch('http://localhost:8080/workouts', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(formData),
@@ -246,7 +293,7 @@ class App extends Component {
         });
 
         const parsedResponse = await createdWorkout.json();
-        this.setState({workouts: [...this.state.workouts, parsedResponse.data]})
+        this.setState({workouts: [...this.state.workouts, parsedResponse]})
 
     } catch(err) {
         console.log(err)
@@ -254,8 +301,9 @@ class App extends Component {
   }
 
   deleteWorkout = async (deletedWorkoutID) => {
+    console.log(deletedWorkoutID);
     try{
-        const deleteWorkout = await fetch(`http://localhost:9000/workouts/${deletedWorkoutID}`, {
+        const deleteWorkout = await fetch('http://localhost:8080/workouts/' + deletedWorkoutID, {
             method: 'DELETE',
             credentials: 'include',
             headers: {
@@ -263,12 +311,13 @@ class App extends Component {
             }
         });
 
-        const parsedResponse = await deleteWorkout.json();
-
-        if(parsedResponse.status === 200){
-            this.setState({
-                workouts: this.state.workouts.filter(workout => workout._id !== deletedWorkoutID)
-            })
+        console.log(deleteWorkout.status);
+        if(deleteWorkout.status === 200){
+          console.log('hit deleted workout');
+            // this.setState({
+            //     workouts: this.state.workouts.filter(workout => workout.id !== deletedWorkoutID)
+            // })
+            this.getWorkouts();
         }
 
 
@@ -281,7 +330,7 @@ class App extends Component {
   editWorkout = async (e) => {
     e.preventDefault();
     try {
-        const updateWorkout = await fetch('http://localhost:9000/workouts/' + this.state.workoutToEdit._id, {
+        const updateWorkout = await fetch('http://localhost:8080/workouts/' + this.state.workoutToEdit.id + '/edit', {
             method: 'PUT',
             credentials: 'include',
             body: JSON.stringify(this.state.workoutToEdit),
@@ -291,9 +340,10 @@ class App extends Component {
         })
 
         const parsedResponse = await updateWorkout.json();
+        console.log(parsedResponse);
         const editedWorkoutArr = this.state.workouts.map((workout) => {
-            if(workout._id === this.state.workoutToEdit._id){
-                workout = parsedResponse.data
+            if(workout.id === this.state.workoutToEdit.id){
+                workout = parsedResponse
             }
             return workout
         });

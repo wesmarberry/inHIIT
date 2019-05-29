@@ -6,8 +6,8 @@ class NewWorkout extends Component {
         super();
         this.state = {
             name: '',
-            intervalOne: null,
-            intervalTwo: null,
+            intervalone: null,
+            intervaltwo: null,
             cycles: null,
             modal: false
         }
@@ -38,8 +38,8 @@ class NewWorkout extends Component {
             
                 
                     Name: <input onChange={this.updateState} type='text' name='name'/><br/>
-                    IntervalOne: <input onChange={this.updateState} type='text' name='intervalOne'/><br/>
-                    IntervalTwo: <input onChange={this.updateState} type='text' name='intervalTwo'/><br/>
+                    IntervalOne: <input onChange={this.updateState} type='text' name='intervalone'/><br/>
+                    IntervalTwo: <input onChange={this.updateState} type='text' name='intervaltwo'/><br/>
                     Cycles: <input onChange={this.updateState} type='text' name='cycles'/><br/>
                     
                 

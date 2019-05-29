@@ -36,8 +36,8 @@ class EditWorkout extends React.Component {
           <ModalBody>
                 
                     name: <input onChange={this.props.handleFormChange} type='text' name='name' placeholder={this.props.workout.name}/><br/>
-                    intervalOne: <input onChange={this.props.handleFormChange} type='text' name='intervalOne' placeholder={this.props.workout.intervalOne}/><br/>
-                    intervalTwo: <input onChange={this.props.handleFormChange} type='text' name='intervalTwo' placeholder={this.props.workout.intervalTwo}/><br/>
+                    intervalOne: <input onChange={this.props.handleFormChange} type='text' name='intervalone' placeholder={this.props.workout.intervalone}/><br/>
+                    intervalTwo: <input onChange={this.props.handleFormChange} type='text' name='intervaltwo' placeholder={this.props.workout.intervaltwo}/><br/>
                     cycles: <input onChange={this.props.handleFormChange} type='text' name='cycles' placeholder={this.props.workout.cycles}/><br/>
 
                 
